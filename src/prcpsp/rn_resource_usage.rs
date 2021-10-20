@@ -6,8 +6,8 @@ use crate::prcpsp::rn_resource::RnResource as RnResource;
 */
 #[derive(Debug,Clone)]
 pub struct RnResourceUsage {
-    resource: RnResource,
-    usage: u32,
+    pub resource: RnResource,
+    pub usage: u32,
 }
 
 impl RnResourceUsage {
