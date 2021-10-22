@@ -14,3 +14,8 @@ cargo build --release
 ```bash
 cargo run --release
 ```
+
+### Test
+```bash
+cargo test 
+```
