@@ -4,7 +4,7 @@ use crate::prcpsp::activity::Activity as Activity;
 use crate::metaheuristics::state::State as State;
 
 /**
-* State representation for Simulated annealing and Tabu Search.
+* State representation for Simulated annealing.
 */
 #[derive(Clone, Debug)]
 pub struct SaState {
@@ -20,6 +20,30 @@ impl SaState {
         SaState::get_initial_state(project, seed)
     }
 
+    pub fn from_project_planned(project: Project, seed: u64) -> SaState {
+        SaState::get_state(project, seed)
+    }
+
+    /**
+    * From a started project, create a new state.
+    * project: project started.
+    * seed: seed for state.
+    */
+    fn get_state(project: Project, seed: u64) -> SaState {
+        let mut planning : Vec<u32> = vec![];
+        let mut times : Vec<i32> = vec![];
+        let mut activities = project.activities.clone();
+        activities.sort_by_key(|x|x.start_time);
+        if activities.first().unwrap() != project.activities.first().unwrap() ||
+           activities.last().unwrap() != project.activities.last().unwrap()  {
+            panic!("Dummy activities not found");
+        }
+        for activity in &activities {
+            planning.push(activity.id);
+            times.push(activity.start_time)
+        }
+        return SaState{ project, rng: SeedableRng::seed_from_u64(seed), planning: planning, times: times};
+    }
 
     /**
     * Get an initial solution using BFS in the project network.
@@ -56,7 +80,11 @@ impl SaState {
         return SaState{ project, rng: SeedableRng::seed_from_u64(seed), planning: planning, times: times};
     }
 
-    fn get_planning(&mut self) {
+    /**
+    * According to planning vector, for each activity,
+    * get its start_time and save it in times vector.
+    */
+    pub fn get_planning(&mut self) {
         let mut time = 0;
         let other = self.project.clone();
         for (i,id) in self.planning.iter().enumerate() {
@@ -70,11 +98,21 @@ impl SaState {
         }
     }
 
+    /**
+    * Return finish time of project, which is latest activity.
+    */
     pub fn get_makespan(&self) -> u32 {
         let last = self.times.last().unwrap();
         return *last as u32;
     }
 
+    /**
+    * Get a neighbor cost and index from current state.
+    * Create a neighbor swapping three activities around a position randomly taked in planning vector.
+    *
+    * Return a pair (cost, index) where cost is the makespan of neighbor
+    * and index is the position in planning vector where swapping create the neighbor ,
+    */
     fn get_neighbor(&mut self) -> (u32, usize) {
         loop {
             let i= self.rng.gen_range(2, self.project.activities.len()-2) as usize;
@@ -93,11 +131,16 @@ impl SaState {
                    neighbor.planning[i] = before_activity.id;
                    neighbor.planning[i+1] = activity.id;
                    neighbor.get_planning();
-                   return (neighbor.get_makespan(), i);
+                   let neighbor_cost = neighbor.get_makespan();
+                   return (neighbor_cost, i);
             }
         }
     }
 
+    /**
+    * Update current planning swapping activities around index.
+    * index: position where activities around it have to be swapped.
+    */
     fn change_planning(&mut self, index: usize) {
         let before = self.planning[index-1];
         let current = self.planning[index];
@@ -128,6 +171,228 @@ impl SaState {
         str.push_str(&"]");
         return str;
     }
+
+    /*
+    * Get an SVG file representating the state.
+    **/
+    pub fn get_svg(&self) -> String  {
+        let mut str = String::new();
+        let mut width = self.get_makespan() * 100 + 600;
+        let total_resources = self.project.resources.iter().fold(0,|acc, x| acc + x.capacity );
+        let height = total_resources * 100 + 600;
+
+        let x1 = 500;
+        let y1 = height-500;
+        let x2 = 500 + self.get_makespan() * 100;
+        let y2 = y1;
+
+        let mut x_axis = String::from("  <line x1='");
+        x_axis.push_str(&x1.to_string());
+        x_axis.push_str(&"' x2='");
+        x_axis.push_str(&x2.to_string());
+        x_axis.push_str(&"' y1='");
+        x_axis.push_str(&y1.to_string());
+        x_axis.push_str(&"' y2='");
+        x_axis.push_str(&y2.to_string());
+        x_axis.push_str(&"' stroke='black' stroke-width='5'/>\n");
+
+        let x1 = 500;
+        let x2 = x1;
+        let y2 = height-500;
+        let y1 = y2 - total_resources*100;
+
+        let mut y_axis = String::from("  <line x1='");
+        y_axis.push_str(&x1.to_string());
+        y_axis.push_str(&"' x2='");
+        y_axis.push_str(&x2.to_string());
+        y_axis.push_str(&"' y1='");
+        y_axis.push_str(&y1.to_string());
+        y_axis.push_str(&"' y2='");
+        y_axis.push_str(&y2.to_string());
+        y_axis.push_str(&"' stroke='black' stroke-width='5'/>\n");
+
+        str.push_str(&x_axis);
+        str.push_str(&y_axis);
+
+        let mut x1 = 500;
+        let y1 = height-500;
+        let mut x2 = x1;
+        let y2 = height-400;
+
+        let mut tag = String::from("   <text x='");
+        tag.push_str(&(width/2).to_string());
+        tag.push_str(&"' y='");
+        tag.push_str(&(height-200).to_string());
+        tag.push_str(&"' font-size='100' text-anchor='middle'>");
+        tag.push_str(&"Tiempo");
+        tag.push_str(&"</text>\n");
+        str.push_str(&tag);
+
+        for x in 0..=self.get_makespan() {
+            let mut limit = String::from("  <line x1='");
+            limit.push_str(&x1.to_string());
+            limit.push_str(&"' x2='");
+            limit.push_str(&x2.to_string());
+            limit.push_str(&"' y1='");
+            limit.push_str(&y1.to_string());
+            limit.push_str(&"' y2='");
+            limit.push_str(&y2.to_string());
+            limit.push_str(&"' stroke='black' stroke-width='5'/>\n");
+            str.push_str(&limit);
+
+            let mut tag = String::from("   <text x='");
+            tag.push_str(&x1.to_string());
+            tag.push_str(&"' y='");
+            tag.push_str(&(y2 + 50).to_string());
+            tag.push_str(&"' font-size='60' text-anchor='middle'>");
+            tag.push_str(&x.to_string());
+            tag.push_str(&"</text>\n");
+            str.push_str(&tag);
+
+            x1 += 100;
+            x2 += 100;
+        }
+
+        let x1 = 400;
+        let mut y1 = height-500;
+        let x2 = 500;
+        let mut y2 = y1;
+
+        let mut tag = String::from("   <text x='");
+        tag.push_str(&(-1*(height as i32)/2).to_string());
+        tag.push_str(&"' y='");
+        tag.push_str(&(200).to_string());
+        tag.push_str(&"' transform='rotate(270)' font-size='100' text-anchor='middle'>");
+        tag.push_str(&"Recursos");
+        tag.push_str(&"</text>\n");
+        str.push_str(&tag);
+
+        for y in 0..=total_resources {
+            let mut limit = String::from("  <line x1='");
+            limit.push_str(&x1.to_string());
+            limit.push_str(&"' x2='");
+            limit.push_str(&x2.to_string());
+            limit.push_str(&"' y1='");
+            limit.push_str(&y1.to_string());
+            limit.push_str(&"' y2='");
+            limit.push_str(&y2.to_string());
+            limit.push_str(&"' stroke='black' stroke-width='5'/>\n");
+            str.push_str(&limit);
+
+            let mut tag = String::from("   <text x='");
+            tag.push_str(&(x1 - 50).to_string());
+            tag.push_str(&"' y='");
+            tag.push_str(&(y1 + 20).to_string());
+            tag.push_str(&"' font-size='60' text-anchor='middle'>");
+            tag.push_str(&y.to_string());
+            tag.push_str(&"</text>\n");
+            str.push_str(&tag);
+
+            y1 -= 100;
+            y2 -= 100;
+        }
+
+        let mut x_p = 500;
+        let mut y_p = height-500;
+
+        let mut x_done : Vec<u32> = vec![];
+        let mut y_done : Vec<u32> = vec![];
+        let mut width_done : Vec<u32> = vec![];
+        let mut height_done : Vec<u32> = vec![];
+        for i in 0..self.planning.len() {
+            let id = self.planning[i];
+            if id == *self.planning.first().unwrap() || id == *self.planning.last().unwrap() {
+                continue;
+            }
+
+            let activity = self.project.activities.iter().find(|x|x.id == id).unwrap();
+
+            let width_rectangle = activity.duration * 100;
+            let height_rectangle = activity.get_demand() * 100;
+
+            y_p -= height_rectangle;
+            let mut check_again = true;
+
+            while check_again {
+                check_again = false;
+                for i in 0..x_done.len() {
+                    let x_i = x_done[i];
+                    let y_i = y_done[i];
+                    let width_i = width_done[i];
+                    let height_i = height_done[i];
+                    loop {
+                        if x_i == x_p || (x_i < x_p && x_p < (x_i + width_i) ) {
+                            if y_i == y_p
+                            || (y_i < y_p && y_p + height_rectangle <= y_i + height_i )
+                            || (y_p < y_i && y_p + height_rectangle >= y_i + height_i )
+                            || (y_i < y_p && y_p + height_rectangle >= y_i + height_i && y_i + height_i > y_p  )
+                                {
+                                if height_rectangle > y_i {
+                                    y_p = 0;
+                                    break;
+                                }
+                                y_p = y_i - height_rectangle;
+                                check_again = true;
+                            } else {
+                                break;
+                            }
+                        } else {
+                            break;
+                        }
+                    }
+                }
+            }
+
+            let mut rectangle = String::from("  <rect x='");
+            rectangle.push_str(&(x_p).to_string());
+            rectangle.push_str(&"' y='");
+            rectangle.push_str(&(y_p).to_string());
+            rectangle.push_str(&"' width='");
+            rectangle.push_str(&width_rectangle.to_string());
+            rectangle.push_str(&"' height='");
+            rectangle.push_str(&height_rectangle.to_string());
+            rectangle.push_str(&"' fill='rgb(100, 149, 237)'");
+            rectangle.push_str(&" stroke='black' stroke-width='.7mm' />\n");
+
+
+            let mut id_rectangle = String::from("   <text x='");
+            id_rectangle.push_str(&(width_rectangle/2 + x_p).to_string());
+            id_rectangle.push_str(&"' y='");
+            id_rectangle.push_str(&(height_rectangle/2 + y_p).to_string());
+            id_rectangle.push_str(&"' font-size='50' text-anchor='middle'>");
+            if activity.parent != -1 {
+                id_rectangle.push_str(&activity.parent.to_string());
+            } else {
+                id_rectangle.push_str(&activity.id.to_string());
+            }
+            id_rectangle.push_str(&"</text>\n");
+            str.push_str(&rectangle);
+            str.push_str(&id_rectangle);
+
+            x_done.push(x_p);
+            y_done.push(y_p);
+            width_done.push(width_rectangle);
+            height_done.push(height_rectangle);
+
+            if i+1 != self.planning.len() {
+                if self.times[i+1] != self.times[i] {
+                    x_p = self.times[i+1] as u32 * 100 + 500;
+                    y_p = height-500;
+                }
+            }
+        }
+
+        width = x_p + 100;
+        let mut file = String::from("<svg version='1.1' width='");
+        file.push_str(&width.to_string());
+        file.push_str(&"' height='");
+        file.push_str(&height.to_string());
+        file.push_str(&"' xmlns='http://www.w3.org/2000/svg'>\n");
+        file.push_str(&str);
+        file.push_str("</svg>");
+
+        return file;
+    }
 }
 
 impl State for SaState {
@@ -147,6 +412,11 @@ impl State for SaState {
     fn to_string(&self) -> String {
         return self.get_string();
     }
+
+    fn to_file(&self) -> String {
+        return self.get_svg();
+    }
+
 }
 
 #[cfg(test)]
