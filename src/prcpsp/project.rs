@@ -67,11 +67,10 @@ impl Project {
         }
 
         let last = self.activities[self.activities.len()-1].clone();
-        let mut last_subactivity = Activity::new(subactivities_count,-1,subactivities_count.to_string(),vec![],vec![],vec![],0,-1);
-        last_subactivity.parent = last.id as i32;
+        let last_subactivity = Activity::new(subactivities_count, last.id as i32,subactivities_count.to_string(),vec![],vec![],vec![],0,-1);
         pair_activities.push(ActivitySubs(last,vec![last_subactivity]));
 
-        pair_activities
+        return pair_activities;
     }
 
     /**
@@ -100,7 +99,7 @@ impl Project {
             subs.push(last);
             subactivities.append(&mut subs);
         }
-        subactivities
+        return subactivities;
     }
 
     /**
@@ -124,6 +123,10 @@ impl Project {
     * time: time where activity can be planned.
     */
     pub fn get_time_planning(&self, activity: Activity, time: i32) -> i32 {
+        // It's initial activity
+        if activity == self.activities.first().unwrap().clone() {
+            return time;
+        }
         let mut max_time_predecessor : i32 = 0;
         for pre in activity.predecessors {
             let predecessor = self.activities.iter().find(|x|x.id == pre).unwrap();
@@ -149,7 +152,7 @@ impl Project {
     pub fn predecessors_planned(&self, activity: Activity) -> bool {
         for pred in activity.predecessors {
             let predecessor = self.activities.iter().find(|x| x.id == pred).unwrap();
-            if predecessor.start_time == -1 {
+            if predecessor.start_time == -1 && predecessor.id != 1 {
                 return false;
             }
         }
@@ -165,8 +168,8 @@ impl Project {
     pub fn resource_conflict(&self, activity: Activity, time: i32) -> bool {
         let activities_time : Vec<Activity> = self.activities.clone()
                                                              .into_iter()
-                                                             .filter(|x| *x  != activity && (x.start_time == time ||
-                                                                        (x.start_time < time && time < x.start_time + x.duration as i32 && x.start_time != -1)) ).collect();
+                                                             .filter(|x| x.start_time != -1 && *x  != activity && (x.start_time == time ||
+                                                                        (x.start_time < time && time < x.start_time + x.duration as i32)) ).collect();
         if activities_time.len() == 0 {
             return false;
         }

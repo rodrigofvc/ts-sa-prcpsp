@@ -41,6 +41,15 @@ impl Activity {
             _ => return false
         }
     }
+
+    pub fn get_demand(&self) -> u32 {
+        let mut usage = 0;
+        for s in &self.supplies {
+            usage += s.usage;
+        }
+        return usage;
+    }
+
 }
 
 impl PartialEq for Activity {
