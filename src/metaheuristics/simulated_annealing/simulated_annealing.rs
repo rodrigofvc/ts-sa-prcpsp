@@ -1,6 +1,16 @@
 use crate::metaheuristics::state::State as State;
 use rand::{Rng, SeedableRng,StdRng};
 
+/**
+* Simulated annealing metaheuristic.
+*
+* initial_state: initial state.
+* iterations: iterations per temperature level.
+* temperature: temperature.
+* decrement: temperature decrement after each temperature level.
+* epsilon: minimum reached temperature to finish.
+* seed: seed for pseudo-random numbers.
+*/
 pub fn simulated_annealing(initial_state: impl State, iterations: u32, mut temperature : f32, decrement: f32, epsilon: f32, seed: u64) -> (impl State, Vec<String>) {
     let mut log = vec![];
     let mut current_state = initial_state;
