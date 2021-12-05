@@ -185,11 +185,10 @@ fn get_intervals_resource(columns: u32, random_activities: u32, random_resources
     let mut rows = 0;
     let mut possible_activities = 0;
 
-    while possible_activities <= random_activities {
-        possible_activities = rows * columns;
+    while possible_activities < random_activities {
         rows+=1;
+        possible_activities = rows * columns;
     }
-    rows-=1;
 
     let mut intervals_resource : Vec<u32> = vec![];
     let mut duration_intervals_resource : Vec<u32> = vec![];
