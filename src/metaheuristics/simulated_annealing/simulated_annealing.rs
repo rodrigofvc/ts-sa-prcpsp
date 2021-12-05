@@ -25,7 +25,7 @@ pub fn simulated_annealing(initial_state: impl State, iterations: u32, mut tempe
     while temperature > epsilon {
         let mut n = 0;
         while n < iterations {
-            let (neighbor_cost, movement) = current_state.get_neighbor();
+            let (neighbor_cost, movement, activities) = current_state.get_neighbor();
             let delta = neighbor_cost as i32 - current_state.get_cost() as i32;
             if delta <= 0 {
                 current_state.set_neighbor(movement);

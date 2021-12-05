@@ -74,7 +74,7 @@ impl SaState {
             let successors : Vec<Activity> = project.activities.clone()
                                                                .into_iter()
                                                                .filter(|x| current.successors.contains(&x.id) &&
-                                                                           !queue.contains(&x)).collect();
+                                                                           !queue.contains(&x) && x.start_time == -1 ).collect();
             successors.iter().for_each(|x| queue.push(x.clone()));
         }
         return SaState{ project, rng: SeedableRng::seed_from_u64(seed), planning: planning, times: times};
@@ -113,7 +113,7 @@ impl SaState {
     * Return a pair (cost, index) where cost is the makespan of neighbor
     * and index is the position in planning vector where swapping create the neighbor ,
     */
-    fn get_neighbor(&mut self) -> (u32, usize) {
+    fn get_neighbor(&mut self) -> (u32, usize, Vec<u32>) {
         loop {
             let i= self.rng.gen_range(2, self.project.activities.len()-2) as usize;
             let id_choosen_before = self.planning[i-1];
@@ -132,7 +132,8 @@ impl SaState {
                    neighbor.planning[i+1] = activity.id;
                    neighbor.get_planning();
                    let neighbor_cost = neighbor.get_makespan();
-                   return (neighbor_cost, i);
+                   let activities = vec![before_activity.id, activity.id, next_activity.id];
+                   return (neighbor_cost, i, activities);
             }
         }
     }
@@ -142,6 +143,9 @@ impl SaState {
     * index: position where activities around it have to be swapped.
     */
     fn change_planning(&mut self, index: usize) {
+        if index <= 1  {
+            panic!("Index should be greater than 1");
+        }
         let before = self.planning[index-1];
         let current = self.planning[index];
         let next = self.planning[index+1];
@@ -397,7 +401,7 @@ impl SaState {
 
 impl State for SaState {
 
-    fn get_neighbor(&mut self) -> (u32, usize) {
+    fn get_neighbor(&mut self) -> (u32, usize, Vec<u32>) {
         return self.get_neighbor();
     }
 
