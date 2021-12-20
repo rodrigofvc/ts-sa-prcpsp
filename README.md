@@ -33,6 +33,11 @@ Optimum solution constructed in `optimum.svg`
   <img src="output/optimum.svg" width="15000" height="500">
 </div>
 
+Log file in `log` dir.
+<div class="col-md-offset">
+  <img src="log/log.png" width="1500" height="500">
+</div>
+
 ### Test
 ```bash
 cargo test 
