@@ -64,13 +64,10 @@ impl SaState {
                 queue.push(current);
                 continue;
             }
-            time = project.get_time_planning(current.clone(), time);
-            while project.resource_conflict(current.clone(), time) {
-                time += 1;
-            }
             project.set_time(current.clone(), time);
             planning.push(current.id);
             times.push(time);
+            time += current.duration as i32;
             let successors : Vec<Activity> = project.activities.clone()
                                                                .into_iter()
                                                                .filter(|x| current.successors.contains(&x.id) &&
