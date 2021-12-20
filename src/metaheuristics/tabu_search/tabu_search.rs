@@ -7,46 +7,35 @@ use crate::metaheuristics::tabu_search::tabu_mv::TabuMv as TabuMv;
 * tabu_time: tabu ternure.
 * neighbors: admissible neighbors to search each time.
 * iterations: total iterations.
-* diversification_factor: use for penalty and get a diversification.
 */
-pub fn tabu_search(initial_state: impl State + Clone, tabu_time: u32, neighbors: u32 , iterations: u32, diversification_factor : u32 ) -> (impl State, Vec<String>) {
+pub fn tabu_search(initial_state: impl State + Clone, tabu_time: u32, neighbors: u32 , iterations: u32) -> (impl State, Vec<String>) {
     let mut log : Vec<String> = vec![];
     let mut tabu_list : Vec<TabuMv> = vec![];
     let mut current_state = initial_state;
     let mut optimum = current_state.clone();
     let mut limit = 0;
-    let no_changes = 3;
-    let mut i = 0;
-    let p = 10;
-    let mut penalty = 0;
+    //let mut i = 0;
     while limit != iterations {
-        let (neighbor_cost, movement, activities) = best_admissible_neighbors(&mut current_state, neighbors, &mut tabu_list, penalty);
-        if neighbor_cost < current_state.get_cost() + penalty && movement != 0 {
-            current_state.set_neighbor(movement);
-            let new_tabu_movement = TabuMv::new(activities, tabu_time + 1);
-            tabu_list.push(new_tabu_movement);
-            i = 0;
-            penalty = 0;
-        } else {
-            if i == no_changes {
-                penalty = diversification_factor * p;
-                i = 0;
-            } else {
-                i += 1;
-            }
-        }
+        let (neighbor_cost, movement, activities) = best_admissible_neighbors(&mut current_state, neighbors, &mut tabu_list, &optimum);
+
+        current_state.set_neighbor(movement);
+
         if current_state.get_cost() < optimum.get_cost() {
             optimum = current_state.clone();
         }
+
         log.push(current_state.get_cost().to_string());
         update_tabu_time(&mut tabu_list);
+
+        let new_tabu_movement = TabuMv::new(activities, tabu_time);
+        tabu_list.push(new_tabu_movement);
+
         println!("\n  >>>>>>>>>>> \n ");
         println!("  Ejemplar: \n {}",current_state.to_string());
         println!("  Costo: {}", current_state.get_cost());
         println!("  Iteracion: {}/{}", limit, iterations);
-        println!("  Tabu list {:?}", tabu_list);
-        println!("  Penalty {:?}",penalty);
-        println!("  Opt {} Cur {:?}", optimum.get_cost(), current_state.get_cost());
+        println!("  Lista tabu: {:?}", tabu_list);
+        println!("  Optimo {} Actual {}", optimum.get_cost(), current_state.get_cost());
         limit += 1;
     }
     return (optimum, log);
@@ -59,13 +48,11 @@ pub fn tabu_search(initial_state: impl State + Clone, tabu_time: u32, neighbors:
 * tabu_list: tabu struct.
 * penalty: penalty for diversification.
 */
-fn best_admissible_neighbors(current_state: &mut impl State, neighbors: u32, tabu_list : &mut Vec<TabuMv>, penalty: u32) -> (u32, usize, Vec<u32>) {
-    let mut best_movement = 0;
-    let mut best_neighbor_cost = current_state.get_cost() + penalty;
-    let mut best_activities = vec![];
+fn best_admissible_neighbors(current_state: &mut impl State, neighbors: u32, tabu_list : &mut Vec<TabuMv>, optimum: &impl State) -> (u32, usize, Vec<u32>) {
+    let (mut best_neighbor_cost, mut best_movement, mut best_activities) = current_state.get_neighbor();
     let mut admissible_neighbors = neighbors;
     let mut checked : Vec<usize> = vec![];
-    let mut attemps = neighbors * 2;
+    let mut attemps = neighbors + neighbors/2;
     while admissible_neighbors != 0 && attemps != 0 {
         attemps -= 1;
         let (neighbor_cost, movement, activities) = current_state.get_neighbor();
@@ -78,7 +65,7 @@ fn best_admissible_neighbors(current_state: &mut impl State, neighbors: u32, tab
 
         let is_tabu = tabu_list.iter().any(|x| x.is_tabu(activities.clone()));
         if is_tabu {
-            if aspiration_criteria(neighbor_cost, current_state) {
+            if aspiration_criteria(neighbor_cost, optimum) {
                 best_neighbor_cost = neighbor_cost;
                 best_movement = movement;
                 best_activities = activities.clone();
@@ -94,6 +81,16 @@ fn best_admissible_neighbors(current_state: &mut impl State, neighbors: u32, tab
         }
         admissible_neighbors -= 1;
     }
+
+    if aspiration_criteria(best_neighbor_cost, optimum) {
+        let is_tabu = tabu_list.iter().any(|x| x.is_tabu(best_activities.clone()));
+        if is_tabu {
+            let i = tabu_list.iter().position(|x| x.movements.contains(&best_activities[0]) &&
+                                                  x.movements.contains(&best_activities[1]) &&
+                                                  x.movements.contains(&best_activities[2]) ).unwrap();
+            tabu_list.remove(i);
+        }
+    }
     return (best_neighbor_cost, best_movement, best_activities);
 }
 
@@ -101,14 +98,16 @@ fn best_admissible_neighbors(current_state: &mut impl State, neighbors: u32, tab
 * If tabu movement gets a solution better than
 * any other seen before, then can be accepted.
 */
-fn aspiration_criteria(neighbor_cost: u32, current_state: &impl State) -> bool {
-    if neighbor_cost < current_state.get_cost() {
+fn aspiration_criteria(neighbor_cost: u32, optimum: &impl State) -> bool {
+    if neighbor_cost < optimum.get_cost() {
         return true;
     }
     return false;
 }
 
-
+/**
+* Decrease tabu time in one unit time.
+*/
 fn update_tabu_time(tabu_list : &mut Vec<TabuMv>) {
     let mut new_tabu_list : Vec<TabuMv> = tabu_list.clone().into_iter().filter(|x|x.tabu_time > 1).collect();
     for tabu in &mut new_tabu_list {
