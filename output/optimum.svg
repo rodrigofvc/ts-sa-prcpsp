@@ -1,7 +1,7 @@
-<svg version='1.1' width='6600' height='3600' xmlns='http://www.w3.org/2000/svg'>
-  <line x1='500' x2='6500' y1='3100' y2='3100' stroke='black' stroke-width='5'/>
+<svg version='1.1' width='3600' height='3600' xmlns='http://www.w3.org/2000/svg'>
+  <line x1='500' x2='3500' y1='3100' y2='3100' stroke='black' stroke-width='5'/>
   <line x1='500' x2='500' y1='100' y2='3100' stroke='black' stroke-width='5'/>
-   <text x='3300' y='3400' font-size='100' text-anchor='middle'>Tiempo</text>
+   <text x='1800' y='3400' font-size='100' text-anchor='middle'>Tiempo</text>
   <line x1='500' x2='500' y1='3100' y2='3200' stroke='black' stroke-width='5'/>
    <text x='500' y='3250' font-size='60' text-anchor='middle'>0</text>
   <line x1='600' x2='600' y1='3100' y2='3200' stroke='black' stroke-width='5'/>
@@ -64,66 +64,6 @@
    <text x='3400' y='3250' font-size='60' text-anchor='middle'>29</text>
   <line x1='3500' x2='3500' y1='3100' y2='3200' stroke='black' stroke-width='5'/>
    <text x='3500' y='3250' font-size='60' text-anchor='middle'>30</text>
-  <line x1='3600' x2='3600' y1='3100' y2='3200' stroke='black' stroke-width='5'/>
-   <text x='3600' y='3250' font-size='60' text-anchor='middle'>31</text>
-  <line x1='3700' x2='3700' y1='3100' y2='3200' stroke='black' stroke-width='5'/>
-   <text x='3700' y='3250' font-size='60' text-anchor='middle'>32</text>
-  <line x1='3800' x2='3800' y1='3100' y2='3200' stroke='black' stroke-width='5'/>
-   <text x='3800' y='3250' font-size='60' text-anchor='middle'>33</text>
-  <line x1='3900' x2='3900' y1='3100' y2='3200' stroke='black' stroke-width='5'/>
-   <text x='3900' y='3250' font-size='60' text-anchor='middle'>34</text>
-  <line x1='4000' x2='4000' y1='3100' y2='3200' stroke='black' stroke-width='5'/>
-   <text x='4000' y='3250' font-size='60' text-anchor='middle'>35</text>
-  <line x1='4100' x2='4100' y1='3100' y2='3200' stroke='black' stroke-width='5'/>
-   <text x='4100' y='3250' font-size='60' text-anchor='middle'>36</text>
-  <line x1='4200' x2='4200' y1='3100' y2='3200' stroke='black' stroke-width='5'/>
-   <text x='4200' y='3250' font-size='60' text-anchor='middle'>37</text>
-  <line x1='4300' x2='4300' y1='3100' y2='3200' stroke='black' stroke-width='5'/>
-   <text x='4300' y='3250' font-size='60' text-anchor='middle'>38</text>
-  <line x1='4400' x2='4400' y1='3100' y2='3200' stroke='black' stroke-width='5'/>
-   <text x='4400' y='3250' font-size='60' text-anchor='middle'>39</text>
-  <line x1='4500' x2='4500' y1='3100' y2='3200' stroke='black' stroke-width='5'/>
-   <text x='4500' y='3250' font-size='60' text-anchor='middle'>40</text>
-  <line x1='4600' x2='4600' y1='3100' y2='3200' stroke='black' stroke-width='5'/>
-   <text x='4600' y='3250' font-size='60' text-anchor='middle'>41</text>
-  <line x1='4700' x2='4700' y1='3100' y2='3200' stroke='black' stroke-width='5'/>
-   <text x='4700' y='3250' font-size='60' text-anchor='middle'>42</text>
-  <line x1='4800' x2='4800' y1='3100' y2='3200' stroke='black' stroke-width='5'/>
-   <text x='4800' y='3250' font-size='60' text-anchor='middle'>43</text>
-  <line x1='4900' x2='4900' y1='3100' y2='3200' stroke='black' stroke-width='5'/>
-   <text x='4900' y='3250' font-size='60' text-anchor='middle'>44</text>
-  <line x1='5000' x2='5000' y1='3100' y2='3200' stroke='black' stroke-width='5'/>
-   <text x='5000' y='3250' font-size='60' text-anchor='middle'>45</text>
-  <line x1='5100' x2='5100' y1='3100' y2='3200' stroke='black' stroke-width='5'/>
-   <text x='5100' y='3250' font-size='60' text-anchor='middle'>46</text>
-  <line x1='5200' x2='5200' y1='3100' y2='3200' stroke='black' stroke-width='5'/>
-   <text x='5200' y='3250' font-size='60' text-anchor='middle'>47</text>
-  <line x1='5300' x2='5300' y1='3100' y2='3200' stroke='black' stroke-width='5'/>
-   <text x='5300' y='3250' font-size='60' text-anchor='middle'>48</text>
-  <line x1='5400' x2='5400' y1='3100' y2='3200' stroke='black' stroke-width='5'/>
-   <text x='5400' y='3250' font-size='60' text-anchor='middle'>49</text>
-  <line x1='5500' x2='5500' y1='3100' y2='3200' stroke='black' stroke-width='5'/>
-   <text x='5500' y='3250' font-size='60' text-anchor='middle'>50</text>
-  <line x1='5600' x2='5600' y1='3100' y2='3200' stroke='black' stroke-width='5'/>
-   <text x='5600' y='3250' font-size='60' text-anchor='middle'>51</text>
-  <line x1='5700' x2='5700' y1='3100' y2='3200' stroke='black' stroke-width='5'/>
-   <text x='5700' y='3250' font-size='60' text-anchor='middle'>52</text>
-  <line x1='5800' x2='5800' y1='3100' y2='3200' stroke='black' stroke-width='5'/>
-   <text x='5800' y='3250' font-size='60' text-anchor='middle'>53</text>
-  <line x1='5900' x2='5900' y1='3100' y2='3200' stroke='black' stroke-width='5'/>
-   <text x='5900' y='3250' font-size='60' text-anchor='middle'>54</text>
-  <line x1='6000' x2='6000' y1='3100' y2='3200' stroke='black' stroke-width='5'/>
-   <text x='6000' y='3250' font-size='60' text-anchor='middle'>55</text>
-  <line x1='6100' x2='6100' y1='3100' y2='3200' stroke='black' stroke-width='5'/>
-   <text x='6100' y='3250' font-size='60' text-anchor='middle'>56</text>
-  <line x1='6200' x2='6200' y1='3100' y2='3200' stroke='black' stroke-width='5'/>
-   <text x='6200' y='3250' font-size='60' text-anchor='middle'>57</text>
-  <line x1='6300' x2='6300' y1='3100' y2='3200' stroke='black' stroke-width='5'/>
-   <text x='6300' y='3250' font-size='60' text-anchor='middle'>58</text>
-  <line x1='6400' x2='6400' y1='3100' y2='3200' stroke='black' stroke-width='5'/>
-   <text x='6400' y='3250' font-size='60' text-anchor='middle'>59</text>
-  <line x1='6500' x2='6500' y1='3100' y2='3200' stroke='black' stroke-width='5'/>
-   <text x='6500' y='3250' font-size='60' text-anchor='middle'>60</text>
    <text x='-1800' y='200' transform='rotate(270)' font-size='100' text-anchor='middle'>Recursos</text>
   <line x1='400' x2='500' y1='3100' y2='3100' stroke='black' stroke-width='5'/>
    <text x='350' y='3120' font-size='60' text-anchor='middle'>0</text>
@@ -187,104 +127,124 @@
    <text x='350' y='220' font-size='60' text-anchor='middle'>29</text>
   <line x1='400' x2='500' y1='100' y2='100' stroke='black' stroke-width='5'/>
    <text x='350' y='120' font-size='60' text-anchor='middle'>30</text>
-  <rect x='500' y='2500' width='100' height='600' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
-   <text x='550' y='2800' font-size='50' text-anchor='middle'>2</text>
-  <rect x='500' y='1900' width='100' height='600' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
-   <text x='550' y='2200' font-size='50' text-anchor='middle'>13</text>
-  <rect x='500' y='1300' width='100' height='600' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
-   <text x='550' y='1600' font-size='50' text-anchor='middle'>24</text>
-  <rect x='500' y='700' width='100' height='600' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
-   <text x='550' y='1000' font-size='50' text-anchor='middle'>35</text>
-  <rect x='500' y='100' width='100' height='600' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
-   <text x='550' y='400' font-size='50' text-anchor='middle'>46</text>
-  <rect x='600' y='2500' width='200' height='600' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
-   <text x='700' y='2800' font-size='50' text-anchor='middle'>3</text>
-  <rect x='600' y='1900' width='200' height='600' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
-   <text x='700' y='2200' font-size='50' text-anchor='middle'>14</text>
-  <rect x='600' y='1300' width='200' height='600' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
-   <text x='700' y='1600' font-size='50' text-anchor='middle'>25</text>
-  <rect x='600' y='700' width='200' height='600' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
-   <text x='700' y='1000' font-size='50' text-anchor='middle'>36</text>
-  <rect x='600' y='100' width='200' height='600' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
-   <text x='700' y='400' font-size='50' text-anchor='middle'>47</text>
-  <rect x='800' y='2500' width='300' height='600' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
-   <text x='950' y='2800' font-size='50' text-anchor='middle'>4</text>
-  <rect x='800' y='1900' width='300' height='600' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
-   <text x='950' y='2200' font-size='50' text-anchor='middle'>15</text>
-  <rect x='800' y='1300' width='300' height='600' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
-   <text x='950' y='1600' font-size='50' text-anchor='middle'>26</text>
-  <rect x='800' y='700' width='300' height='600' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
-   <text x='950' y='1000' font-size='50' text-anchor='middle'>37</text>
-  <rect x='800' y='100' width='300' height='600' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
-   <text x='950' y='400' font-size='50' text-anchor='middle'>48</text>
-  <rect x='1100' y='2500' width='400' height='600' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
-   <text x='1300' y='2800' font-size='50' text-anchor='middle'>5</text>
-  <rect x='1100' y='1900' width='400' height='600' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
-   <text x='1300' y='2200' font-size='50' text-anchor='middle'>16</text>
-  <rect x='1100' y='1300' width='400' height='600' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
-   <text x='1300' y='1600' font-size='50' text-anchor='middle'>27</text>
-  <rect x='1100' y='700' width='400' height='600' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
-   <text x='1300' y='1000' font-size='50' text-anchor='middle'>38</text>
-  <rect x='1100' y='100' width='400' height='600' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
-   <text x='1300' y='400' font-size='50' text-anchor='middle'>49</text>
-  <rect x='1500' y='2500' width='500' height='600' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
-   <text x='1750' y='2800' font-size='50' text-anchor='middle'>6</text>
-  <rect x='1500' y='1900' width='500' height='600' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
-   <text x='1750' y='2200' font-size='50' text-anchor='middle'>17</text>
-  <rect x='1500' y='1300' width='500' height='600' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
-   <text x='1750' y='1600' font-size='50' text-anchor='middle'>28</text>
-  <rect x='1500' y='700' width='500' height='600' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
-   <text x='1750' y='1000' font-size='50' text-anchor='middle'>39</text>
-  <rect x='1500' y='100' width='500' height='600' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
-   <text x='1750' y='400' font-size='50' text-anchor='middle'>50</text>
-  <rect x='2000' y='2500' width='600' height='600' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
-   <text x='2300' y='2800' font-size='50' text-anchor='middle'>7</text>
-  <rect x='2000' y='1900' width='600' height='600' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
-   <text x='2300' y='2200' font-size='50' text-anchor='middle'>18</text>
-  <rect x='2000' y='1300' width='600' height='600' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
-   <text x='2300' y='1600' font-size='50' text-anchor='middle'>29</text>
-  <rect x='2000' y='700' width='600' height='600' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
-   <text x='2300' y='1000' font-size='50' text-anchor='middle'>40</text>
-  <rect x='2000' y='100' width='4500' height='600' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
-   <text x='4250' y='400' font-size='50' text-anchor='middle'>51</text>
-  <rect x='2600' y='2500' width='700' height='600' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
-   <text x='2950' y='2800' font-size='50' text-anchor='middle'>8</text>
-  <rect x='2600' y='1900' width='700' height='600' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
-   <text x='2950' y='2200' font-size='50' text-anchor='middle'>19</text>
-  <rect x='2600' y='1300' width='700' height='600' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
-   <text x='2950' y='1600' font-size='50' text-anchor='middle'>30</text>
-  <rect x='2600' y='700' width='700' height='600' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
-   <text x='2950' y='1000' font-size='50' text-anchor='middle'>41</text>
-  <rect x='3300' y='2500' width='800' height='600' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
-   <text x='3700' y='2800' font-size='50' text-anchor='middle'>9</text>
-  <rect x='3300' y='1900' width='800' height='600' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
-   <text x='3700' y='2200' font-size='50' text-anchor='middle'>20</text>
-  <rect x='3300' y='1300' width='800' height='600' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
-   <text x='3700' y='1600' font-size='50' text-anchor='middle'>31</text>
-  <rect x='3300' y='700' width='800' height='600' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
-   <text x='3700' y='1000' font-size='50' text-anchor='middle'>42</text>
-  <rect x='4100' y='2500' width='900' height='600' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
-   <text x='4550' y='2800' font-size='50' text-anchor='middle'>10</text>
-  <rect x='4100' y='1900' width='900' height='600' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
-   <text x='4550' y='2200' font-size='50' text-anchor='middle'>21</text>
-  <rect x='4100' y='1300' width='900' height='600' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
-   <text x='4550' y='1600' font-size='50' text-anchor='middle'>32</text>
-  <rect x='4100' y='700' width='900' height='600' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
-   <text x='4550' y='1000' font-size='50' text-anchor='middle'>43</text>
-  <rect x='5000' y='2500' width='1000' height='600' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
-   <text x='5500' y='2800' font-size='50' text-anchor='middle'>11</text>
-  <rect x='5000' y='1900' width='1000' height='600' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
-   <text x='5500' y='2200' font-size='50' text-anchor='middle'>22</text>
-  <rect x='5000' y='1300' width='1000' height='600' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
-   <text x='5500' y='1600' font-size='50' text-anchor='middle'>33</text>
-  <rect x='5000' y='700' width='1000' height='600' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
-   <text x='5500' y='1000' font-size='50' text-anchor='middle'>44</text>
-  <rect x='6000' y='2500' width='500' height='600' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
-   <text x='6250' y='2800' font-size='50' text-anchor='middle'>12</text>
-  <rect x='6000' y='1900' width='500' height='600' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
-   <text x='6250' y='2200' font-size='50' text-anchor='middle'>23</text>
-  <rect x='6000' y='1300' width='500' height='600' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
-   <text x='6250' y='1600' font-size='50' text-anchor='middle'>34</text>
-  <rect x='6000' y='700' width='500' height='600' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
-   <text x='6250' y='1000' font-size='50' text-anchor='middle'>45</text>
+  <rect x='500' y='2800' width='100' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='550' y='2950' font-size='50' text-anchor='middle'>2</text>
+  <rect x='500' y='2500' width='100' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='550' y='2650' font-size='50' text-anchor='middle'>10</text>
+  <rect x='500' y='2200' width='100' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='550' y='2350' font-size='50' text-anchor='middle'>18</text>
+  <rect x='500' y='1900' width='100' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='550' y='2050' font-size='50' text-anchor='middle'>26</text>
+  <rect x='500' y='1600' width='100' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='550' y='1750' font-size='50' text-anchor='middle'>34</text>
+  <rect x='500' y='1300' width='100' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='550' y='1450' font-size='50' text-anchor='middle'>42</text>
+  <rect x='500' y='1000' width='100' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='550' y='1150' font-size='50' text-anchor='middle'>50</text>
+  <rect x='500' y='100' width='100' height='900' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='550' y='550' font-size='50' text-anchor='middle'>58</text>
+  <rect x='600' y='2800' width='200' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='700' y='2950' font-size='50' text-anchor='middle'>3</text>
+  <rect x='600' y='2500' width='200' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='700' y='2650' font-size='50' text-anchor='middle'>11</text>
+  <rect x='600' y='2200' width='200' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='700' y='2350' font-size='50' text-anchor='middle'>19</text>
+  <rect x='600' y='1900' width='200' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='700' y='2050' font-size='50' text-anchor='middle'>27</text>
+  <rect x='600' y='1600' width='200' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='700' y='1750' font-size='50' text-anchor='middle'>35</text>
+  <rect x='600' y='1300' width='200' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='700' y='1450' font-size='50' text-anchor='middle'>43</text>
+  <rect x='600' y='1000' width='200' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='700' y='1150' font-size='50' text-anchor='middle'>51</text>
+  <rect x='600' y='100' width='200' height='900' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='700' y='550' font-size='50' text-anchor='middle'>59</text>
+  <rect x='800' y='2800' width='300' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='950' y='2950' font-size='50' text-anchor='middle'>4</text>
+  <rect x='800' y='2500' width='300' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='950' y='2650' font-size='50' text-anchor='middle'>12</text>
+  <rect x='800' y='2200' width='300' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='950' y='2350' font-size='50' text-anchor='middle'>20</text>
+  <rect x='800' y='1900' width='300' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='950' y='2050' font-size='50' text-anchor='middle'>28</text>
+  <rect x='800' y='1600' width='300' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='950' y='1750' font-size='50' text-anchor='middle'>36</text>
+  <rect x='800' y='1300' width='300' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='950' y='1450' font-size='50' text-anchor='middle'>44</text>
+  <rect x='800' y='1000' width='300' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='950' y='1150' font-size='50' text-anchor='middle'>52</text>
+  <rect x='800' y='100' width='300' height='900' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='950' y='550' font-size='50' text-anchor='middle'>60</text>
+  <rect x='1100' y='2800' width='400' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='1300' y='2950' font-size='50' text-anchor='middle'>5</text>
+  <rect x='1100' y='2500' width='400' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='1300' y='2650' font-size='50' text-anchor='middle'>13</text>
+  <rect x='1100' y='2200' width='400' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='1300' y='2350' font-size='50' text-anchor='middle'>21</text>
+  <rect x='1100' y='1900' width='400' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='1300' y='2050' font-size='50' text-anchor='middle'>29</text>
+  <rect x='1100' y='1600' width='400' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='1300' y='1750' font-size='50' text-anchor='middle'>37</text>
+  <rect x='1100' y='1300' width='400' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='1300' y='1450' font-size='50' text-anchor='middle'>45</text>
+  <rect x='1100' y='1000' width='400' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='1300' y='1150' font-size='50' text-anchor='middle'>53</text>
+  <rect x='1100' y='100' width='2400' height='900' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='2300' y='550' font-size='50' text-anchor='middle'>61</text>
+  <rect x='1500' y='2800' width='500' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='1750' y='2950' font-size='50' text-anchor='middle'>6</text>
+  <rect x='1500' y='2500' width='500' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='1750' y='2650' font-size='50' text-anchor='middle'>14</text>
+  <rect x='1500' y='2200' width='500' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='1750' y='2350' font-size='50' text-anchor='middle'>22</text>
+  <rect x='1500' y='1900' width='500' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='1750' y='2050' font-size='50' text-anchor='middle'>30</text>
+  <rect x='1500' y='1600' width='500' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='1750' y='1750' font-size='50' text-anchor='middle'>38</text>
+  <rect x='1500' y='1300' width='500' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='1750' y='1450' font-size='50' text-anchor='middle'>46</text>
+  <rect x='1500' y='1000' width='500' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='1750' y='1150' font-size='50' text-anchor='middle'>54</text>
+  <rect x='2000' y='2800' width='600' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='2300' y='2950' font-size='50' text-anchor='middle'>7</text>
+  <rect x='2000' y='2500' width='600' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='2300' y='2650' font-size='50' text-anchor='middle'>15</text>
+  <rect x='2000' y='2200' width='600' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='2300' y='2350' font-size='50' text-anchor='middle'>23</text>
+  <rect x='2000' y='1900' width='600' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='2300' y='2050' font-size='50' text-anchor='middle'>31</text>
+  <rect x='2000' y='1600' width='600' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='2300' y='1750' font-size='50' text-anchor='middle'>39</text>
+  <rect x='2000' y='1300' width='600' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='2300' y='1450' font-size='50' text-anchor='middle'>47</text>
+  <rect x='2000' y='1000' width='600' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='2300' y='1150' font-size='50' text-anchor='middle'>55</text>
+  <rect x='2600' y='2800' width='700' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='2950' y='2950' font-size='50' text-anchor='middle'>8</text>
+  <rect x='2600' y='2500' width='700' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='2950' y='2650' font-size='50' text-anchor='middle'>16</text>
+  <rect x='2600' y='2200' width='700' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='2950' y='2350' font-size='50' text-anchor='middle'>24</text>
+  <rect x='2600' y='1900' width='700' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='2950' y='2050' font-size='50' text-anchor='middle'>32</text>
+  <rect x='2600' y='1600' width='700' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='2950' y='1750' font-size='50' text-anchor='middle'>40</text>
+  <rect x='2600' y='1300' width='700' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='2950' y='1450' font-size='50' text-anchor='middle'>48</text>
+  <rect x='2600' y='1000' width='700' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='2950' y='1150' font-size='50' text-anchor='middle'>56</text>
+  <rect x='3300' y='2800' width='200' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='3400' y='2950' font-size='50' text-anchor='middle'>9</text>
+  <rect x='3300' y='2500' width='200' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='3400' y='2650' font-size='50' text-anchor='middle'>17</text>
+  <rect x='3300' y='2200' width='200' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='3400' y='2350' font-size='50' text-anchor='middle'>25</text>
+  <rect x='3300' y='1900' width='200' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='3400' y='2050' font-size='50' text-anchor='middle'>33</text>
+  <rect x='3300' y='1600' width='200' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='3400' y='1750' font-size='50' text-anchor='middle'>41</text>
+  <rect x='3300' y='1300' width='200' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='3400' y='1450' font-size='50' text-anchor='middle'>49</text>
+  <rect x='3300' y='1000' width='200' height='300' fill='rgb(100, 149, 237)' stroke='black' stroke-width='.7mm' />
+   <text x='3400' y='1150' font-size='50' text-anchor='middle'>57</text>
 </svg>
