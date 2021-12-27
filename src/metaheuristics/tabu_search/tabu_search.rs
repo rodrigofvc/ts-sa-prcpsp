@@ -82,6 +82,13 @@ fn best_admissible_neighbors(current_state: &mut impl State, neighbors: u32, tab
         admissible_neighbors -= 1;
     }
 
+    while best_neighbor_cost == current_state.get_cost() {
+        let (neighbor_cost, movement, activities) = current_state.get_neighbor();
+        best_neighbor_cost = neighbor_cost;
+        best_movement = movement;
+        best_activities = activities.clone();
+    }
+
     if aspiration_criteria(best_neighbor_cost, optimum) {
         let is_tabu = tabu_list.iter().any(|x| x.is_tabu(best_activities.clone()));
         if is_tabu {

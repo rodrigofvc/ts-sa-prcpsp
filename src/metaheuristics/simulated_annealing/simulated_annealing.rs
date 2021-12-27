@@ -11,9 +11,10 @@ use rand::{Rng, SeedableRng,StdRng};
 * epsilon: minimum reached temperature to finish.
 * seed: seed for pseudo-random numbers.
 */
-pub fn simulated_annealing(initial_state: impl State, iterations: u32, mut temperature : f32, decrement: f32, epsilon: f32, seed: u64) -> (impl State, Vec<String>) {
+pub fn simulated_annealing(initial_state: impl State + Clone, iterations: u32, mut temperature : f32, decrement: f32, epsilon: f32, seed: u64) -> (impl State, Vec<String>) {
     let mut log = vec![];
-    let mut current_state = initial_state;
+    let mut current_state = initial_state.clone();
+    let mut optimum = initial_state.clone();
     let mut t = temperature;
     let mut total = 0;
     let mut iteration = 1;
@@ -45,7 +46,10 @@ pub fn simulated_annealing(initial_state: impl State, iterations: u32, mut tempe
         temperature *= decrement;
         iteration += 1;
         log.push(current_state.get_cost().to_string());
+        if current_state.get_cost() < optimum.get_cost() {
+            optimum = current_state.clone();
+        }
     }
 
-    return (current_state, log);
+    return (optimum, log);
 }
