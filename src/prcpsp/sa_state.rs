@@ -176,6 +176,93 @@ impl SaState {
         return str;
     }
 
+    #[allow(dead_code)]
+    pub fn get_string_verbose(&self) -> String {
+        let mut str = String::new();
+        let mut original = String::new();
+
+        str.push_str(&" Actividades,Subactividades [Actividad -> Subactividades]\n");
+        let mut parents : Vec<i32> = self.project.activities.clone().into_iter().map(|x| x.parent).filter(|x|*x > 0).collect();
+        parents.insert(0, 1);
+        parents.sort();
+        parents.dedup();
+        for parent in parents {
+            let subactivities : Vec<Activity> = self.project.activities.clone().into_iter().filter(|x| x.parent == parent).collect();
+            let mut activity_str = String::from("[");
+            activity_str.push_str(&parent.to_string());
+            activity_str.push_str(&" -> ");
+            for (i, sub) in subactivities.iter().enumerate() {
+                activity_str.push_str(&sub.id.to_string());
+                if i != subactivities.len()-1 {
+                    activity_str.push_str(&", ");
+                }
+            }
+            activity_str.push_str(&"]\n");
+            original.push_str(&activity_str);
+        }
+
+        str.push_str(&original);
+
+        str.push_str(&" Recursos (recurso, capacidad)\n");
+        let mut resources = String::from(" [");
+        for (i,r) in self.project.resources.iter().enumerate() {
+            resources.push('(');
+            resources.push_str(&r.name);
+            resources.push_str(&", ");
+            resources.push_str(&r.capacity.to_string());
+            resources.push(')');
+            if i != self.project.resources.len()-1 {
+                resources.push_str(&", ");
+            }
+        }
+        resources.push_str("]\n");
+        str.push_str(&resources);
+
+        str.push_str(&" Predencia de actividades (Actividad, Predecesor)\n");
+        let mut precedence = String::from(" [");
+        for (i,a) in self.project.activities.iter().enumerate() {
+            if a.id == 1 {
+                continue;
+            }
+            for (j,predecessor) in a.predecessors.iter().enumerate() {
+                precedence.push('(');
+                precedence.push_str(&a.id.to_string());
+                precedence.push(',');
+                precedence.push_str(&predecessor.to_string());
+                precedence.push(')');
+                if j != &a.predecessors.len()-1 {
+                    precedence.push(',');
+                }
+            }
+            if i != self.project.activities.len()-1 {
+                precedence.push(',');
+            }
+        }
+        precedence.push_str(&"]\n");
+        str.push_str(&precedence);
+
+        let mut planning = String::from("   [");
+        for (i,p) in self.planning.iter().enumerate() {
+            planning.push_str(&p.to_string());
+            if i != self.planning.len()-1 {
+                planning.push_str(&", ");
+            }
+        }
+        planning.push_str(&"]");
+        planning.push_str(&"\n");
+        planning.push_str(&"    [");
+        for (i,p) in self.times.iter().enumerate() {
+            planning.push_str(&p.to_string());
+            if i != self.planning.len()-1 {
+                planning.push_str(&", ");
+            }
+        }
+        planning.push_str(&"]");
+        str.push_str(&planning);
+
+        return str;
+    }
+
     /*
     * Get an SVG file representating the state.
     **/

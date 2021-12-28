@@ -16,35 +16,109 @@ pub fn get_time(seconds: u64) -> String {
         time.push_str(&minutes.to_string());
         time.push(':');
         time.push_str(&seconds.to_string());
-        time.push_str(" hh:mm:ss");
+        time.push_str(" (hh:mm:ss)");
         return time;
 }
 
-pub fn write_log(state: String, cost: u32, iterations: u32, temperature: f32, epsilon: f32, decrement: f32, seed: u64, log: Vec<String>, time: String){
+pub fn write_log_random(random_seed: u64, random_cost: u32, random_activities: u32, random_resources: u32, random_resources_max_capacity: u32){
+    let mut content  = String::new();
+    content.push_str("\n Datos del ejemplar: \n");
+    content.push_str("  Semilla: ");
+    content.push_str(&random_seed.to_string());
+    content.push_str(&", ");
+    content.push_str("Costo optimo: ");
+    content.push_str(&random_cost.to_string());
+    content.push_str(&", ");
+    content.push_str("Actividades: ");
+    content.push_str(&random_activities.to_string());
+    content.push_str(&", ");
+    content.push_str("Recursos: ");
+    content.push_str(&random_resources.to_string());
+    content.push_str(&", ");
+    content.push_str("Unidades de recursos: ");
+    content.push_str(&random_resources_max_capacity.to_string());
+    if !std::path::Path::new(LOG_PATH).is_file() {
+        fs::File::create(LOG_PATH).expect("No se pudo crear un archivo");
+        fs::write(LOG_PATH, content.as_bytes()).expect("No se pudó escribir un archivo");
+    } else {
+        let mut file = fs::OpenOptions::new()
+        .write(true)
+        .append(true)
+        .open(LOG_PATH)
+        .unwrap();
+        write!(file, "{}", content).expect("No se pudo escribir un archivo");
+    }
+}
+
+pub fn write_log_sa(state: String, cost: u32, iterations: u32, temperature: f32, epsilon: f32, decrement: f32, seed: u64, log: Vec<String>, time: String){
     let mut content  = String::new();
     content.push_str("\n >>>>>>>>>>> Ejemplar: \n");
     content.push_str(&state);
     content.push('\n');
+    content.push(' ');
+    content.push_str("Metaheuristica: ");
+    content.push_str("Recocido Simulado");
+    content.push_str(&", ");
     content.push_str("Costo: ");
     content.push_str(&cost.to_string());
-    content.push(' ');
+    content.push_str(&", ");
     content.push_str("Semilla: ");
     content.push_str(&seed.to_string());
-    content.push(' ');
+    content.push_str(&", ");
     content.push_str("Tiempo: ");
     content.push_str(&time);
-    content.push(' ');
+    content.push_str(&", ");
     content.push_str("Iteraciones: ");
     content.push_str(&iterations.to_string());
-    content.push(' ');
+    content.push_str(&", ");
     content.push_str("Temperatura: ");
     content.push_str(&temperature.to_string());
-    content.push(' ');
+    content.push_str(&", ");
     content.push_str("Epsilon: ");
     content.push_str(&epsilon.to_string());
-    content.push(' ');
+    content.push_str(&", ");
     content.push_str("Decremento: ");
     content.push_str(&decrement.to_string());
+    get_log(log.clone());
+    if !std::path::Path::new(LOG_PATH).is_file() {
+        fs::File::create(LOG_PATH).expect("No se pudo crear un archivo");
+        fs::write(LOG_PATH, content.as_bytes()).expect("No se pudó escribir un archivo");
+    } else {
+        let mut file = fs::OpenOptions::new()
+        .write(true)
+        .append(true)
+        .open(LOG_PATH)
+        .unwrap();
+        write!(file, "{}", content).expect("No se pudo escribir un archivo");
+    }
+}
+
+pub fn write_log_ts(state: String, cost: u32, tabu_time: u32, neighbors: u32, iterations: u32, seed: u64, log: Vec<String>, time: String){
+    let mut content  = String::new();
+    content.push_str("\n >>>>>>>>>>> Ejemplar: \n");
+    content.push_str(&state);
+    content.push('\n');
+    content.push(' ');
+    content.push_str("Metaheuristica: ");
+    content.push_str("Busqueda Tabu");
+    content.push_str(", ");
+    content.push_str("Costo: ");
+    content.push_str(&cost.to_string());
+    content.push_str(&", ");
+    content.push_str("Semilla: ");
+    content.push_str(&seed.to_string());
+    content.push_str(&", ");
+    content.push_str("Tiempo: ");
+    content.push_str(&time);
+    content.push_str(&", ");
+    content.push_str("Tiempo tabu: ");
+    content.push_str(&tabu_time.to_string());
+    content.push_str(&", ");
+    content.push_str("Vecinos: ");
+    content.push_str(&neighbors.to_string());
+    content.push_str(&", ");
+    content.push_str("Iteraciones: ");
+    content.push_str(&iterations.to_string());
     get_log(log.clone());
     if !std::path::Path::new(LOG_PATH).is_file() {
         fs::File::create(LOG_PATH).expect("No se pudo crear un archivo");

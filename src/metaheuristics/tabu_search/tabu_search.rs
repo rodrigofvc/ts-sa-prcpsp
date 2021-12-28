@@ -14,9 +14,8 @@ pub fn tabu_search(initial_state: impl State + Clone, tabu_time: u32, neighbors:
     let mut current_state = initial_state;
     let mut optimum = current_state.clone();
     let mut limit = 0;
-    //let mut i = 0;
     while limit != iterations {
-        let (neighbor_cost, movement, activities) = best_admissible_neighbors(&mut current_state, neighbors, &mut tabu_list, &optimum);
+        let (_, movement, activities) = best_admissible_neighbors(&mut current_state, neighbors, &mut tabu_list, &optimum);
 
         current_state.set_neighbor(movement);
 
