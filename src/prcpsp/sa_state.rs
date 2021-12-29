@@ -110,11 +110,12 @@ impl SaState {
     * Get a neighbor cost and index from current state.
     * Create a neighbor swapping three activities around a position randomly taked in planning vector.
     *
-    * Return a pair (cost, index) where cost is the makespan of neighbor
-    * and index is the position in planning vector where swapping create the neighbor ,
+    * Return a pair (cost, index, activities) where cost is the makespan of neighbor
+    * and index is the position in planning vector where swapping create the neighbor,
+    * activities, the activities swapped.
     */
     fn get_neighbor(&mut self) -> (u32, usize, Vec<u32>) {
-        loop {
+        for _ in 0..10 {
             let i= self.rng.gen_range(2, self.project.activities.len()-2) as usize;
             let id_choosen_before = self.planning[i-1];
             let id_choosen = self.planning[i];
@@ -136,6 +137,33 @@ impl SaState {
                    return (neighbor_cost, i, activities);
             }
         }
+        if self.can_generate_neighbor() {
+            return self.get_neighbor();
+        }
+        return (0,0,vec![]);
+    }
+
+    /**
+    * Check if each consecutive 3-pair activities in planning array
+    * are independent (not dependency relation exists).
+    * If true, then a new neighbor can be obtained.
+    **/
+    fn can_generate_neighbor(&self) -> bool {
+        for i in 2..self.planning.len()-2 {
+            let id_choosen_before = self.planning[i-1];
+            let id_choosen = self.planning[i];
+            let id_choosen_next = self.planning[i+1];
+            let activity = self.project.activities.iter().find(|x| x.id == id_choosen).unwrap();
+            let before_activity = self.project.activities.iter().find(|x| x.id == id_choosen_before).unwrap();
+            let next_activity = self.project.activities.iter().find(|x| x.id == id_choosen_next).unwrap();
+            if !activity.is_successor(next_activity.clone()) &&
+               !activity.is_predecessor(before_activity.clone()) &&
+               !before_activity.is_predecessor(next_activity.clone()) &&
+               !next_activity.is_predecessor(before_activity.clone()) {
+                   return true;
+            }
+        }
+        return false;
     }
 
     /**

@@ -17,7 +17,9 @@ pub fn tabu_search(initial_state: impl State + Clone, tabu_time: u32, neighbors:
     while limit != iterations {
         let (_, movement, activities) = best_admissible_neighbors(&mut current_state, neighbors, &mut tabu_list, &optimum);
 
-        current_state.set_neighbor(movement);
+        if movement != 0 {
+            current_state.set_neighbor(movement);
+        }
 
         if current_state.get_cost() < optimum.get_cost() {
             optimum = current_state.clone();
@@ -26,8 +28,10 @@ pub fn tabu_search(initial_state: impl State + Clone, tabu_time: u32, neighbors:
         log.push(current_state.get_cost().to_string());
         update_tabu_time(&mut tabu_list);
 
-        let new_tabu_movement = TabuMv::new(activities, tabu_time);
-        tabu_list.push(new_tabu_movement);
+        if movement != 0 {
+            let new_tabu_movement = TabuMv::new(activities, tabu_time);
+            tabu_list.push(new_tabu_movement);
+        }
 
         println!("\n  >>>>>>>>>>> \n ");
         println!("  Ejemplar: \n {}",current_state.to_string());
@@ -55,7 +59,9 @@ fn best_admissible_neighbors(current_state: &mut impl State, neighbors: u32, tab
     while admissible_neighbors != 0 && attemps != 0 {
         attemps -= 1;
         let (neighbor_cost, movement, activities) = current_state.get_neighbor();
-
+        if movement == 0 {
+            return (best_neighbor_cost, best_movement, best_activities);
+        }
         let movement_checked = checked.iter().find(|x| **x == movement);
         match movement_checked {
             Some(_) => continue,
@@ -80,12 +86,19 @@ fn best_admissible_neighbors(current_state: &mut impl State, neighbors: u32, tab
         }
         admissible_neighbors -= 1;
     }
-
-    while best_neighbor_cost == current_state.get_cost() {
+    attemps = 10;
+    while attemps != 0 {
+        if best_neighbor_cost != current_state.get_cost() {
+            break;
+        }
+        attemps -= 1;
         let (neighbor_cost, movement, activities) = current_state.get_neighbor();
         best_neighbor_cost = neighbor_cost;
         best_movement = movement;
         best_activities = activities.clone();
+        if movement == 0 {
+            return (best_neighbor_cost, best_movement, best_activities);
+        }
     }
 
     if aspiration_criteria(best_neighbor_cost, optimum) {

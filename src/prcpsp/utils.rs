@@ -20,7 +20,7 @@ pub fn get_time(seconds: u64) -> String {
         return time;
 }
 
-pub fn write_log_random(random_seed: u64, random_cost: u32, random_activities: u32, random_resources: u32, random_resources_max_capacity: u32){
+pub fn write_log_random(random_seed: u64, random_cost: u32, random_activities: u32, random_resources: u32, random_resources_max_capacity: u32, initial_cost: u32){
     let mut content  = String::new();
     content.push_str("\n Datos del ejemplar: \n");
     content.push_str("  Semilla: ");
@@ -37,6 +37,9 @@ pub fn write_log_random(random_seed: u64, random_cost: u32, random_activities: u
     content.push_str(&", ");
     content.push_str("Unidades de recursos: ");
     content.push_str(&random_resources_max_capacity.to_string());
+    content.push_str(&", ");
+    content.push_str("Costo inicial: ");
+    content.push_str(&initial_cost.to_string());
     if !std::path::Path::new(LOG_PATH).is_file() {
         fs::File::create(LOG_PATH).expect("No se pudo crear un archivo");
         fs::write(LOG_PATH, content.as_bytes()).expect("No se pudó escribir un archivo");

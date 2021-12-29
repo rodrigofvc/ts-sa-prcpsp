@@ -27,6 +27,10 @@ pub fn simulated_annealing(initial_state: impl State + Clone, iterations: u32, m
         let mut n = 0;
         while n < iterations {
             let (neighbor_cost, movement, _) = current_state.get_neighbor();
+            if movement == 0 {
+                // Cannot find another solution
+                break;
+            }
             let delta = neighbor_cost as i32 - current_state.get_cost() as i32;
             if delta <= 0 {
                 current_state.set_neighbor(movement);
@@ -43,6 +47,7 @@ pub fn simulated_annealing(initial_state: impl State + Clone, iterations: u32, m
         println!("  Ejemplar: \n {}",current_state.to_string());
         println!("  Costo: {}", current_state.get_cost());
         println!("  Iteracion: {}/{}", iteration, total);
+        println!("  Optimo {} Actual {}", optimum.get_cost(), current_state.get_cost());
         temperature *= decrement;
         iteration += 1;
         log.push(current_state.get_cost().to_string());
