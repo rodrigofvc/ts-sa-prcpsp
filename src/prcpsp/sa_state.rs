@@ -679,7 +679,7 @@ impl State for SaState {
          assert_eq!(planning, initial.planning);
          assert_eq!(times, initial.times);
 
-         let p_project = project.pre_emptive_project();
+         let p_project = project.pre_emptive_project(11);
          let initial = SaState::new(p_project, 11);
          let planning = vec![1,2,3,5,9,12,4,6,10,13,7,11,14,8,18,15,19,16,20,17,21];
          let times = vec![0,0,0,0,1,1,2,2,3,3,3,4,4,4,5,5,6,6,7,7,8];
@@ -693,7 +693,7 @@ impl State for SaState {
          assert_eq!(planning, initial.planning);
          assert_eq!(times, initial.times);
 
-         let p_project = project.pre_emptive_project();
+         let p_project = project.pre_emptive_project(11);
          let initial = SaState::new(p_project, 11);
          let planning = vec![1,2,3,9,12,4,10,13,11,14,18,15,19,16,20,17,5,6,7,8,21];
          let times = vec![0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,9,10,11,12];
@@ -763,8 +763,7 @@ impl State for SaState {
         state.get_planning();
         let expected = vec![0,0,0,0,2,4,5,5,10];
         assert_eq!(expected, state.times);
-
-        let project = project.pre_emptive_project();
+        let project = project.pre_emptive_project(11);
         let mut state = SaState::new(project.clone(), 11);
         state.get_planning();
         let expected = vec![0,0,0,0,1,1,2,2,3,3,3,4,4,4,5,5,6,6,7,7,8];
@@ -776,7 +775,7 @@ impl State for SaState {
         let expected = vec![0,0,1,1,3,4,4,7,11];
         assert_eq!(expected, state.times);
 
-        let project = project.pre_emptive_project();
+        let project = project.pre_emptive_project(11);
         let mut state = SaState::new(project.clone(), 11);
         state.get_planning();
         let expected = vec![0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,9,10,11,12];
@@ -790,7 +789,7 @@ impl State for SaState {
         state.change_planning(4);
         assert_eq!(state.planning, vec![1,2,3,6,4,5,8,7,9]);
 
-        let project = project.pre_emptive_project();
+        let project = project.pre_emptive_project(11);
         let mut state = SaState::new(project.clone(), 11);
         state.change_planning(7);
         assert_eq!(state.planning, vec![1,2,3,5,9,12,10,4,6,13,7,11,14,8,18,15,19,16,20,17,21]);
@@ -800,7 +799,7 @@ impl State for SaState {
         state.change_planning(3);
         assert_eq!(state.planning, vec![1,2,6,3,5,7,8,4,9]);
 
-        let project = project.pre_emptive_project();
+        let project = project.pre_emptive_project(11);
         let mut state = SaState::new(project.clone(), 11);
         state.change_planning(5);
         assert_eq!(state.planning, vec![1,2,3,9,10,12,4,13,11,14,18,15,19,16,20,17,5,6,7,8,21]);

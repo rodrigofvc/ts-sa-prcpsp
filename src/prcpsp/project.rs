@@ -25,21 +25,23 @@ impl Project {
 
     /**
     * From the current project, create a new project where
-    * activities are split in subactivities with duration 1.
+    * each activity is splitted in n subactivities.
     */
-    pub fn pre_emptive_project(&self) -> Project {
-        let pair_activities : Vec<ActivitySubs> = self.split_activities();
+    pub fn pre_emptive_project(&self, n: u32) -> Project {
+        let pair_activities : Vec<ActivitySubs> = self.split_activities(n);
         let subactivities : Vec<Activity> = self.set_neighbor_subactivities(pair_activities);
         let resources = self.resources.clone();
         Project { activities: subactivities, resources }
     }
 
     /**
-    * From the current activities, split each one in subactivities of duration 1.
+    * From the current activities, split each one in n+1 subactivities.
+    * If n is greater than the activity's duration, then the activity
+    * is split in subactivities of duration 1.
     * Return a list of tuples, containing the original activity and its subactivities in a vector.
     * [ActivitySubs_1,..,ActivitySubs_n]
     */
-    fn split_activities(&self) -> Vec<ActivitySubs> {
+    fn split_activities(&self, n: u32) -> Vec<ActivitySubs> {
         let mut pair_activities : Vec<ActivitySubs> = vec![];
         let mut subactivities_count = 2;
         let initial = self.activities[0].clone();
@@ -49,11 +51,23 @@ impl Project {
         for i in 1..self.activities.len()-1 {
             let activity = self.activities[i].clone();
             let mut subs : Vec<Activity> = vec![];
-            for j in 1..=activity.duration {
-                let mut subactivity = Activity::new(subactivities_count,activity.id as i32,subactivities_count.to_string(),vec![],vec![],vec![],1,-1);
+            let m = n+1;
+            let mut duration_sub : u32 = activity.duration / m;
+            let mut subs_n = m;
+            if duration_sub == 0 {
+                duration_sub = 1;
+                subs_n = activity.duration as u32;
+            }
+
+            for j in 0..subs_n {
+                let mut duration_sub_ = duration_sub;
+                if j == subs_n - 1 && activity.duration > m {
+                    duration_sub_ += activity.duration % m;
+                }
+                let mut subactivity = Activity::new(subactivities_count, activity.id as i32, subactivities_count.to_string(), vec![], vec![], vec![], duration_sub_, -1);
                 subactivity.supplies = activity.clone().supplies;
                 subactivities_count+=1;
-                if j > 1 {
+                if j > 0 {
                     let mut anteccessor = subs.pop().unwrap();
                     subactivity.add_anteccessor(anteccessor.id);
                     anteccessor.add_successor(subactivity.id);
@@ -332,7 +346,7 @@ impl Project {
      #[test]
      fn test_split_activities() {
          let project = initial();
-         let pairs = project.split_activities();
+         let pairs = project.split_activities(11);
          for pair in pairs {
              let activity = pair.0;
              let subactivities = pair.1;
@@ -345,7 +359,7 @@ impl Project {
      #[test]
      fn test_set_neighbor_subactivities_project () {
          let project = initial();
-         let pre_emptive_project = project.pre_emptive_project();
+         let pre_emptive_project = project.pre_emptive_project(11);
          let subactivities = pre_emptive_project.activities;
          let subactivity = subactivities.iter().find(|x|x.id == 1).unwrap();
          assert!(subactivity.predecessors.is_empty());
@@ -415,7 +429,7 @@ impl Project {
      #[test]
      fn test_set_neighbor_subactivities_project_1 () {
          let project = initial_1();
-         let pre_emptive_project = project.pre_emptive_project();
+         let pre_emptive_project = project.pre_emptive_project(11);
          let subactivities = pre_emptive_project.activities;
          let subactivity = subactivities.iter().find(|x|x.id == 1).unwrap();
          assert!(subactivity.predecessors.is_empty());
@@ -533,7 +547,7 @@ impl Project {
              assert_eq!(project.get_time_planning(activity.clone(), input[index]) , time);
          }
 
-         let mut p_project = project.pre_emptive_project();
+         let mut p_project = project.pre_emptive_project(11);
          let planning = vec![1,2,3,5,9,12,4,6,10,13,7,11,14,8,18,15,19,16,20,17,21];
          let times = vec![0,0,0,0,1,1,2,2,3,3,3,4,4,4,5,5,6,6,7,7,8];
 
@@ -569,7 +583,7 @@ impl Project {
              assert_eq!(project.get_time_planning(activity.clone(), input[index]) , time);
          }
 
-         let mut p_project = project.pre_emptive_project();
+         let mut p_project = project.pre_emptive_project(11);
          let planning = vec![1,2,3,9,12,4,10,13,11,14,18,15,19,16,20,17,5,6,7,8,21];
          let times = vec![0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,9,10,11,12];
 
@@ -609,7 +623,7 @@ impl Project {
              assert_eq!(other.resource_conflict(activity.clone(), input[index]),conflict);
          }
 
-         let mut p_project = project.pre_emptive_project();
+         let mut p_project = project.pre_emptive_project(11);
          let planning = vec![1,2,3,5,9,12,4,6,10,13,7,11,14,8,18,15,19,16,20,17,21];
          let times = vec![0,0,0,0,1,1,2,2,3,3,3,4,4,4,5,5,6,6,7,7,8];
 
@@ -649,7 +663,7 @@ impl Project {
              assert_eq!(other.resource_conflict(activity.clone(), input[index]), conflict);
          }
 
-         let mut p_project = project.pre_emptive_project();
+         let mut p_project = project.pre_emptive_project(11);
          let planning = vec![1,2,3,9,12,4,10,13,11,14,18,15,19,16,20,17,5,6,7,8,21];
          let times = vec![0,0,1,1,2,2,3,3,4,4,5,5,6,6,7,7,8,9,10,11,12];
 
