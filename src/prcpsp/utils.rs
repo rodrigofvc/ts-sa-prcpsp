@@ -161,3 +161,18 @@ pub fn get_log(log : Vec<String>)  {
     fs::File::create(HISTORY_PATH).expect("No se pudó crear un archivo");
     fs::write(HISTORY_PATH, content.as_bytes()).expect("No se pudó escribir un archivo");
 }
+
+pub fn read_random_prcpsp(filename: String) -> Vec<u32> {
+    let contents = fs::read_to_string(filename)
+            .expect("Ocurrio un error al leer el archivo");
+    let mut params : Vec<u32> = vec![];
+    let lines : Vec<&str> = contents.split("\n").collect();
+    for c in lines {
+        if c.len() == 0 {
+            continue;
+        }
+        let param = c.replace("\r","");
+        params.push(param.parse::<u32>().unwrap());
+    }
+    return params;
+}
