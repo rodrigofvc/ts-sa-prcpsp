@@ -66,7 +66,7 @@ fn main() {
             let (best,log) = sa::simulated_annealing(initial.clone(), iterations, temperature, decrement, epsilon, seed);
             seconds = start.elapsed().as_secs();
             time = utils::get_time(seconds);
-            utils::write_log_sa(best.to_string(), best.get_cost(), iterations, temperature, epsilon, decrement, seed, log, time.clone());
+            utils::write_log_sa(best.to_string(), best.get_cost(), iterations, temperature, epsilon, decrement, seed, log, time.clone(), m);
 
             println!("\n  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< \n  Mejor solucion: \n {} ", best.to_string());
             println!(" Costo: {}", best.get_cost());
@@ -86,7 +86,7 @@ fn main() {
             let (best,log) = ts::tabu_search(initial.clone(), tabu_time, neighbors, iterations);
             seconds = start.elapsed().as_secs();
             time = utils::get_time(seconds);
-            utils::write_log_ts(best.to_string(), best.get_cost(), tabu_time, neighbors, iterations, seed, log, time.clone());
+            utils::write_log_ts(best.to_string(), best.get_cost(), tabu_time, neighbors, iterations, seed, log, time.clone(), m);
 
             println!("\n  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< \n  Mejor solucion: \n {} ", best.to_string());
             println!(" Costo: {}", best.get_cost());
