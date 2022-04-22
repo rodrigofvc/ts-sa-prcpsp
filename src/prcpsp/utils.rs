@@ -53,7 +53,7 @@ pub fn write_log_random(random_seed: u64, random_cost: u32, random_activities: u
     }
 }
 
-pub fn write_log_sa(state: String, cost: u32, iterations: u32, temperature: f32, epsilon: f32, decrement: f32, seed: u64, log: Vec<String>, time: String){
+pub fn write_log_sa(state: String, cost: u32, iterations: u32, temperature: f32, epsilon: f32, decrement: f32, seed: u64, log: Vec<String>, time: String, m: u32){
     let mut content  = String::new();
     content.push_str("\n >>>>>>>>>>> Ejemplar: \n");
     content.push_str(&state);
@@ -67,6 +67,9 @@ pub fn write_log_sa(state: String, cost: u32, iterations: u32, temperature: f32,
     content.push_str(&", ");
     content.push_str("Semilla: ");
     content.push_str(&seed.to_string());
+    content.push_str(&", ");
+    content.push_str("Interrupciones: ");
+    content.push_str(&m.to_string());
     content.push_str(&", ");
     content.push_str("Tiempo: ");
     content.push_str(&time);
@@ -96,7 +99,7 @@ pub fn write_log_sa(state: String, cost: u32, iterations: u32, temperature: f32,
     }
 }
 
-pub fn write_log_ts(state: String, cost: u32, tabu_time: u32, neighbors: u32, iterations: u32, seed: u64, log: Vec<String>, time: String){
+pub fn write_log_ts(state: String, cost: u32, tabu_time: u32, neighbors: u32, iterations: u32, seed: u64, log: Vec<String>, time: String, m: u32){
     let mut content  = String::new();
     content.push_str("\n >>>>>>>>>>> Ejemplar: \n");
     content.push_str(&state);
@@ -110,6 +113,9 @@ pub fn write_log_ts(state: String, cost: u32, tabu_time: u32, neighbors: u32, it
     content.push_str(&", ");
     content.push_str("Semilla: ");
     content.push_str(&seed.to_string());
+    content.push_str(&", ");
+    content.push_str("Interrupciones: ");
+    content.push_str(&m.to_string());
     content.push_str(&", ");
     content.push_str("Tiempo: ");
     content.push_str(&time);
