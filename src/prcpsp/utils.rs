@@ -182,3 +182,59 @@ pub fn read_random_prcpsp(filename: String) -> Vec<u32> {
     }
     return params;
 }
+
+#[allow(dead_code)]
+pub fn write_current(iteration: u32, planning: String, state: String, metaheuristic: String) {
+    let mut dir_name = String::from("it-");
+    dir_name.push_str(&iteration.to_string());
+    dir_name.push('/');
+    let mut name_file = String::new();
+    name_file.push_str(&metaheuristic);
+    name_file.push_str(&"-curr-it-");
+    name_file.push_str(&iteration.to_string());
+    name_file.push_str(&".svg");
+    dir_name.push_str(&name_file);
+    write_svg(planning, &dir_name);
+
+    let mut dir_name = String::from("it-");
+    dir_name.push_str(&iteration.to_string());
+    dir_name.push('/');
+
+    let mut name_file = String::new();
+    name_file.push_str(&metaheuristic);
+    name_file.push_str(&"-curr-it-");
+    name_file.push_str(&iteration.to_string());
+    name_file.push_str(&"-state.svg");
+    dir_name.push_str(&name_file);
+    write_svg(state, &dir_name);
+}
+
+#[allow(dead_code)]
+pub fn write_neighbor(iteration: u32, n: u32, planning: String, state: String) {
+    let mut dir_name = String::from("it-");
+    dir_name.push_str(&iteration.to_string());
+    dir_name.push('/');
+
+    let mut name_file = String::new();
+    name_file.push_str(&"it-");
+    name_file.push_str(&iteration.to_string());
+    name_file.push_str(&"-neig-");
+    name_file.push_str(&(n+1).to_string());
+    name_file.push_str(&".svg");
+
+    dir_name.push_str(&name_file);
+    write_svg(planning, &dir_name);
+    name_file.clear();
+
+    let mut dir_name = String::from("it-");
+    dir_name.push_str(&iteration.to_string());
+    dir_name.push('/');
+
+    name_file.push_str(&"it-");
+    name_file.push_str(&iteration.to_string());
+    name_file.push_str(&"-neig-");
+    name_file.push_str(&(n+1).to_string());
+    name_file.push_str(&"-state.svg");
+    dir_name.push_str(&name_file);
+    write_svg(state, &dir_name);
+}

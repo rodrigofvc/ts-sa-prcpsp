@@ -4,4 +4,6 @@ pub trait State {
     fn get_cost(&self) -> u32;
     fn to_string(&self) -> String;
     fn to_file(&self) -> String;
+    fn svg(&self) -> String;
+    fn svg_state(&self) -> String;
 }

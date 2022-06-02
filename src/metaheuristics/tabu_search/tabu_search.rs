@@ -1,6 +1,5 @@
 use crate::metaheuristics::state::State as State;
 use crate::metaheuristics::tabu_search::tabu_mv::TabuMv as TabuMv;
-
 /**
 * Tabu search metaheuristic.
 * initial_state: initial state.
@@ -36,7 +35,7 @@ pub fn tabu_search(initial_state: impl State + Clone, tabu_time: u32, neighbors:
         println!("\n  >>>>>>>>>>> \n ");
         println!("  Ejemplar: \n {}",current_state.to_string());
         println!("  Costo: {}", current_state.get_cost());
-        println!("  Iteracion: {}/{}", limit, iterations);
+        println!("  Iteracion: {}/{}", limit+1, iterations);
         println!("  Lista tabu: {:?}", tabu_list);
         println!("  Optimo {} Actual {}", optimum.get_cost(), current_state.get_cost());
         limit += 1;
@@ -51,14 +50,19 @@ pub fn tabu_search(initial_state: impl State + Clone, tabu_time: u32, neighbors:
 * tabu_list: tabu struct.
 * penalty: penalty for diversification.
 */
-fn best_admissible_neighbors(current_state: &mut impl State, neighbors: u32, tabu_list : &mut Vec<TabuMv>, optimum: &impl State) -> (u32, usize, Vec<u32>) {
-    let (mut best_neighbor_cost, mut best_movement, mut best_activities) = current_state.get_neighbor();
-    let mut admissible_neighbors = neighbors;
+fn best_admissible_neighbors(current_state: &mut (impl State + Clone), neighbors: u32, tabu_list : &mut Vec<TabuMv>, optimum: &impl State) -> (u32, usize, Vec<u32>) {
+    let mut best_neighbor_cost = u32::MAX;
+    let mut best_movement : usize = 0;
+    let mut best_activities : Vec<u32> = vec![];
+    let mut admissible_neighbors = 0;
     let mut checked : Vec<usize> = vec![];
-    let mut attemps = neighbors + neighbors/2;
-    while admissible_neighbors != 0 && attemps != 0 {
+    let mut attemps = neighbors + neighbors / 2;
+    while admissible_neighbors < neighbors && attemps != 0 {
         attemps -= 1;
         let (neighbor_cost, movement, activities) = current_state.get_neighbor();
+        if neighbor_cost == current_state.get_cost() {
+            continue;
+        }
         if movement == 0 {
             return (best_neighbor_cost, best_movement, best_activities);
         }
@@ -78,19 +82,16 @@ fn best_admissible_neighbors(current_state: &mut impl State, neighbors: u32, tab
                 continue;
             }
         } else {
-            if neighbor_cost < best_neighbor_cost && neighbor_cost != current_state.get_cost() {
+            if neighbor_cost < best_neighbor_cost {
                 best_neighbor_cost = neighbor_cost;
                 best_movement = movement;
                 best_activities = activities.clone();
             }
         }
-        admissible_neighbors -= 1;
+        admissible_neighbors += 1;
     }
     attemps = 10;
-    while attemps != 0 {
-        if best_neighbor_cost != current_state.get_cost() {
-            break;
-        }
+    while attemps != 0 && best_neighbor_cost == current_state.get_cost() {
         attemps -= 1;
         let (neighbor_cost, movement, activities) = current_state.get_neighbor();
         best_neighbor_cost = neighbor_cost;

@@ -87,6 +87,9 @@ impl SaState {
     pub fn get_planning(&mut self) {
         let mut time = 0;
         let other = self.project.clone();
+        for activity in &mut self.project.activities {
+            activity.start_time = -1;
+        }
         for (i,id) in self.planning.iter().enumerate() {
             let current = other.activities.iter().find(|x|x.id == *id).unwrap();
             time = self.project.get_time_planning(current.clone(), time);
@@ -192,7 +195,7 @@ impl SaState {
             }
         }
         str.push_str(&"]");
-        str.push_str(&"\n");
+        str.push('\n');
         str.push_str(&"    [");
         for (i,p) in self.times.iter().enumerate() {
             str.push_str(&p.to_string());
@@ -339,7 +342,7 @@ impl SaState {
         let y2 = height-400;
 
         let mut tag = String::from("   <text x='");
-        tag.push_str(&(width/2).to_string());
+        tag.push_str(&((width+200)/2).to_string());
         tag.push_str(&"' y='");
         tag.push_str(&(height-200).to_string());
         tag.push_str(&"' font-size='100' text-anchor='middle'>");
@@ -378,7 +381,7 @@ impl SaState {
         let mut y2 = y1;
 
         let mut tag = String::from("   <text x='");
-        tag.push_str(&(-1*(height as i32)/2).to_string());
+        tag.push_str(&(-1*(height as i32-250)/2).to_string());
         tag.push_str(&"' y='");
         tag.push_str(&(200).to_string());
         tag.push_str(&"' transform='rotate(270)' font-size='100' text-anchor='middle'>");
@@ -470,7 +473,7 @@ impl SaState {
             rectangle.push_str(&width_rectangle.to_string());
             rectangle.push_str(&"' height='");
             rectangle.push_str(&height_rectangle.to_string());
-            rectangle.push_str(&"' fill='rgb(100, 149, 237)'");
+            rectangle.push_str(&"' fill='rgb(255, 255, 255)'");
             rectangle.push_str(&" stroke='black' stroke-width='.7mm' />\n");
 
 
@@ -479,11 +482,10 @@ impl SaState {
             id_rectangle.push_str(&"' y='");
             id_rectangle.push_str(&(height_rectangle/2 + y_p).to_string());
             id_rectangle.push_str(&"' font-size='50' text-anchor='middle'>");
-            if activity.parent != -1 {
-                id_rectangle.push_str(&activity.parent.to_string());
-            } else {
-                id_rectangle.push_str(&activity.id.to_string());
-            }
+            /***
+            * Using subactivity parent
+            ***/
+            id_rectangle.push_str(&activity.parent.to_string());
             id_rectangle.push_str(&"</text>\n");
             str.push_str(&rectangle);
             str.push_str(&id_rectangle);
@@ -512,6 +514,73 @@ impl SaState {
 
         return file;
     }
+
+    fn state_svg(&self) -> String {
+        let mut content = String::new();
+        let elems = self.planning.len();
+        let width = 200 + elems * 100;
+        let height = 360;
+        content.push_str(&"<svg version='1.1' width='");
+        content.push_str(&width.to_string());
+        content.push_str(&"' height='");
+        content.push_str(&height.to_string());
+        content.push_str(&"' xmlns='http://www.w3.org/2000/svg'>\n");
+
+        let mut x_axis = 100;
+
+        let label = String::from("<text x='15' y='175' font-family='Computer Modern' font-size='90'>L</text>");
+        content.push_str(&label);
+
+        for id in self.planning.iter() {
+            let mut rectangle = String::from("<rect x='");
+            rectangle.push_str(&x_axis.to_string());
+            rectangle.push_str(&"' y='100' width='100' height='100' fill='rgb(255,255,255)' style='rgb(255,255,255)' stroke='black' stroke-width='.7mm'/>\n");
+
+            let activity = self.project.activities.iter().find(|x|x.id == *id as u32).unwrap();
+
+            let mut text = String::from("<text x='");
+            if activity.id >= 10 {
+                text.push_str(&(x_axis+10).to_string());
+            } else {
+                text.push_str(&(x_axis+30).to_string());
+            }
+            text.push_str(&"' y='170' font-size='85'>");
+            text.push_str(&activity.id.to_string());
+            text.push_str(&"</text>\n");
+
+            content.push_str(&rectangle);
+            content.push_str(&text);
+            x_axis+=100;
+        }
+
+        let label = String::from("<text x='15' y='320' font-size='90'>L'</text>");
+        content.push_str(&label);
+
+        x_axis = 100;
+
+        for t in &self.times {
+            let mut rectangle = String::from("<rect x='");
+            rectangle.push_str(&x_axis.to_string());
+            rectangle.push_str(&"' y='250' width='100' height='100' fill='rgb(255,255,255)' style='rgb(255,255,255)' stroke='black' stroke-width='.7mm'/>\n");
+
+            let mut text = String::from("<text x='");
+            if *t >= 10 {
+                text.push_str(&(x_axis+10).to_string());
+            } else {
+                text.push_str(&(x_axis+30).to_string());
+            }
+            text.push_str(&"' y='320' font-size='85'>");
+            text.push_str(&t.to_string());
+            text.push_str(&"</text>\n");
+
+            content.push_str(&rectangle);
+            content.push_str(&text);
+            x_axis+=100;
+        }
+
+        content.push_str(&"</svg>");
+        return content;
+    }
 }
 
 impl State for SaState {
@@ -536,6 +605,13 @@ impl State for SaState {
         return self.get_svg();
     }
 
+    fn svg(&self) -> String {
+        return self.get_svg();
+    }
+
+    fn svg_state(&self) -> String {
+        return self.state_svg();
+    }
 }
 
 #[cfg(test)]
